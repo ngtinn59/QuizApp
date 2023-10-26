@@ -95,6 +95,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun defaultOptionView() {
         val options = ArrayList<TextView>()
             tvOptionOne?.let { options.add(it) }
