@@ -18,12 +18,8 @@ import android.widget.TextView
 
 class QuizQuestionsActivity : AppCompatActivity() {
 
-    private var mCurrentQuestionIndex = 1
     private var currentPosition:Int = 1
     private var mQuestionsList: ArrayList<Question>? = null
-    private var mSelectedOptionIndex: Int = 0
-    private var mUserName : String? = null
-    private var mCorrectAnswer : Int = 0
     private var correctAnswers:  Int = 0
     private var progressBar: ProgressBar? = null
     private var tvProgressBar: TextView? = null
@@ -69,7 +65,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
         }
 
         tvOptionFour?.setOnClickListener {
-            setSelectedOption(it, 3)
+            setSelectedOption(it, 4)
         }
 
         btnSubmit?.setOnClickListener {
@@ -101,10 +97,10 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
     private fun defaultOptionView() {
         val options = ArrayList<TextView>()
-        tvOptionOne?.let { options.add(it) }
-        tvOptionTwo?.let { options.add(it) }
-        tvOptionThree?.let { options.add(it) }
-        tvOptionFour?.let { options.add(it) }
+            tvOptionOne?.let { options.add(it) }
+            tvOptionTwo?.let { options.add(it) }
+            tvOptionThree?.let { options.add(it) }
+            tvOptionFour?.let { options.add(it) }
 
 
         for (option in options){
@@ -122,7 +118,9 @@ class QuizQuestionsActivity : AppCompatActivity() {
                 setQuestion()
             }
             else{
+                val username = intent.getStringExtra("username");
                 val intent = Intent(this, ResultActivity::class.java)
+                intent.putExtra("username", username)
                 intent.putExtra("correctAnswers", correctAnswers)
                 startActivity(intent)
             }
@@ -130,7 +128,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
         else{
             val question = mQuestionsList?.get(currentPosition-1)
             if(question?.correctAnswers!=selectedOption){
-                answerView(selectedOption, R.drawable.default_option_border_bg)
+                answerView(selectedOption, R.drawable.wrong_option_border_bg)
             }
             else{
                 correctAnswers++;
@@ -154,10 +152,8 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
     private fun setSelectedOption(view: View, num: Int){
         defaultOptionView()
-//        (view as TextView).setTextColor(Color.RED) // Cast the `view` parameter to a TextView object before calling the `setTextColor()` function.
         (view as TextView).setBackgroundColor(Color.YELLOW)
         selectedOption = num
-
     }
     private fun answerView(answer: Int, drawableView: Int ) {
         when(answer) {

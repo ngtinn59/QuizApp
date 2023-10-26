@@ -12,7 +12,6 @@ class ResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
         
-//        val totalQuestions = intent.getIntExtra(Constants.TOTAL_QUESTIONS, 0)
 
 
 
@@ -20,10 +19,11 @@ class ResultActivity : AppCompatActivity() {
         val scoreTv: TextView = findViewById(R.id.scoreTv)
         val btnRestart: Button = findViewById(R.id.btnRestart)
 
-        val intent = getIntent()
+        // val intent = getIntent()
         val correctAnswers = intent.getIntExtra("correctAnswers", 0)
+        val username = intent.getStringExtra("username")
 
-//        congratulationsTv.text = "Congratulations, $userName!"
+        congratulationsTv.text = "Congratulations, $username!"
         scoreTv.text = "Your score is $correctAnswers "
 
         btnRestart.setOnClickListener{
